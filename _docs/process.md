@@ -41,3 +41,8 @@ Commit as you complete meaningful chunks of a task — not one giant commit at t
 | `api.md` *(not yet created)* | Will describe the shape of any HTTP/WebSocket endpoints (request/response formats, the Channels event vocabulary). Until it exists, follow the realtime event contract in `arch.md` and keep new endpoints consistent with whatever the current codebase already does. |
 
 If one of the not-yet-created files above would materially help with a task and doesn't exist yet, flag it rather than guessing at conventions — creating it may be worth its own issue.
+
+## Roles
+
+- PM - grooms a task before anyone implements it, follows _docs/team/pm.md
+- Engineer - implements one groomed task, follows _docs/team/software-engineer.md
