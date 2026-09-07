@@ -14,6 +14,34 @@ Each issue follows the same shape:
 - **Description** — 3-5 sentences of context on the work needed
 - **Acceptance Criteria** — a checklist of everything that must be true for the task to be done
 
+## Roles
+
+- PM - grooms a task before anyone implements it, follows _docs/team/pm.md
+- Engineer - implements one groomed task, follows _docs/team/software-engineer.md
+- QA - checks the result against the acceptance criteria, follows _docs/team/qa-engineer.md
+
+## Orchestrator
+
+The main session is the orchestrator. It launches the PM, the engineer
+and QA as subagents. It does not groom, implement or test itself.
+
+Lifecycle
+
+1. Pick the next open issue from the backlog
+2. PM grooms it
+3. Engineer implements it
+4. QA verifies it
+5. On FAIL, back to step 3 with the QA comment as input
+6. On PASS, close the issue
+7. Repeat until the backlog is empty
+
+Rules
+
+- Do not skip step 2
+- The engineer does not close the issue
+- QA does not fix the code, only outputs PASS or FAIL
+- The orchestrator closes the issue only after QA outputs PASS
+
 ## How to work an issue
 
 Work **one issue at a time**, start to finish, before picking up the next one.
@@ -32,18 +60,12 @@ Commit as you complete meaningful chunks of a task — not one giant commit at t
 
 | File | Purpose |
 |---|---|
-| `weekly-retro-mvp.md` | Product spec — what the app does, section by section (Create, Join, Write, Reveal, Vote, Discuss, Actions, Close, Deletion). Read this to understand *behavior*. |
 | `arch.md` | Architecture reference — stack choices, Django app layout, data model sketches, the realtime event contract, coding standards, deployment notes. Read this to understand *how it's built*. |
-| `tasks.md` | The original backlog draft the GitHub issues were generated from. Superseded by the issues themselves (see above) — kept for historical reference, don't treat it as current status. |
-| `process.md` | This file. |
+| `weekly-retro-mvp.md` | Product spec — what the app does, section by section (Create, Join, Write, Reveal, Vote, Discuss, Actions, Close, Deletion). Read this to understand *behavior*. |
 | `testing-guidelines.md` *(not yet created)* | Will describe how tests are structured and what's expected per task (unit vs. integration, fixtures, what "done" looks like for test coverage). Until it exists, follow `arch.md`'s testing note (pytest-django, one test per hard-numbered rule) and each issue's own acceptance criteria. |
 | `design-system.md` *(not yet created)* | Will define shared UI conventions (Tailwind tokens, component patterns, spacing/typography) so the interface doesn't drift session to session. Until it exists, match whatever visual patterns already exist in the templates rather than inventing new ones per task. |
 | `api.md` *(not yet created)* | Will describe the shape of any HTTP/WebSocket endpoints (request/response formats, the Channels event vocabulary). Until it exists, follow the realtime event contract in `arch.md` and keep new endpoints consistent with whatever the current codebase already does. |
+| `tasks.md` | The original backlog draft the GitHub issues were generated from. Superseded by the issues themselves (see above) — kept for historical reference, don't treat it as current status. |
+| `process.md` | This file. |
 
 If one of the not-yet-created files above would materially help with a task and doesn't exist yet, flag it rather than guessing at conventions — creating it may be worth its own issue.
-
-## Roles
-
-- PM - grooms a task before anyone implements it, follows _docs/team/pm.md
-- Engineer - implements one groomed task, follows _docs/team/software-engineer.md
-- QA - checks the result against the acceptance criteria, follows _docs/team/qa-engineer.md
